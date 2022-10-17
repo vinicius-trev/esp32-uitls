@@ -1,13 +1,16 @@
 # Fundamentals in FreeRTOS
 
 1. Tip FreeRTOS Learning Guide -> Start at chapter #3
+
 2. x types in FreeRTOS return something
+
 3. FreeRTOS Decision Tree:
     - Communicate with another task or send simple data -> Task Notification
     - Unblock or block a task -> Semaphore
     - Lock shared resource -> Mutex (the task that lock is the one that unlock)
     - Send complex data -> Queue
     - Multiple things before unblocking task -> Event Group
+
 4. Task Notification
     - xTaskNotifyGive() ulTaskNotifyTake()
         - x return something
@@ -27,7 +30,9 @@
         - clear_exit_mask -> Clear notification bits when exiting the notification
         - rcv_state_bits -> State bits received from the sender
         - delay -> Time delay in ticks
+
 5. Use underline prefix before guard header _COMPONENT_H
+
 6. Event Groups
     - Used to check two or more contitions before unlocking a task (similar as stacked semaphores between if statements)
     - One bit can be set twice without any error while waiting for another bit to unlock a task, just check the code logic
@@ -37,11 +42,13 @@
     - Initialized with: xEventGroupCreate()
     - Set a new bit/event with: xEventGroupSetBits(handle, bit_to_set)
     - Monitor de setted bits with: xEventGroupWaitBits(handle, compare_bit_mask, clear_bits, wait_for_all_bits, timeout)
+
 7. FreeRTOS Timers
     - xTimerCreate("timer_name", ticks_to_kick_timer, only_once_flag, timer_id, timer_callback) -> Return timer_handle TimerHandle_t
     - To start the timer: xTimerStart(timer_handle, time_to_wait_before_start)
     - These are software timers, called by the idle task. In other words do not do complex workload or delays inside the callback, need to be unblocking function without a lot of resources
     - The resolution is only 1ms, the callback (idle) task is a low priority task
+
 8. High Resolution Timer
     - Include: esp_timer.h
     - To create a timer: esp_timer_create(timer_create_args, timer_handle)
